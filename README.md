@@ -1,4 +1,4 @@
-# timesketch
+# Intersketch
 
 > A sketch-based visual analytics tool for querying time series data.
 
