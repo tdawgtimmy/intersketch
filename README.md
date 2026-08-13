@@ -1,4 +1,5 @@
 # timesketch
+
 > A sketch-based visual analytics tool for querying time series data.
 
 ## Getting Started
@@ -14,14 +15,14 @@ You need a web server to run the application in development. [Python][python] ha
 Clone the timesketch repository using git:
 
 ```bash
-git clone https://github.gatech.edu/tmajor3/timesketch.git
+git clone https://github.com/tdawgtimmy/intersketch
 cd timesketch
 ```
 
 If you want to call it something different on your local machine:
 
 ```bash
-git clone https://github.gatech.edu/tmajor3/timesketch.git <your-project-name>
+git clone https://github.com/tdawgtimmy/intersketch <your-project-name>
 cd <your-project-name>
 ```
 
