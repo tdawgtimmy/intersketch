@@ -1,68 +1,290 @@
 <!doctype html>
 <html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>InterSketch</title>
+    <meta
+      name="description"
+      content="InterSketch: interactive sketched queries for time-series data."
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <!-- Place favicon.ico in the root directory -->
 
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  
-</head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">InterSketch</span>
+      <span class="navbar-text d-none d-md-inline">
+        Draw a curve over the chart to query similar time series&mdash;
+        <a
+          href="#"
+          class="text-info"
+          data-toggle="modal"
+          data-target="#howToModal"
+          >how does this work?</a
+        >
+      </span>
+    </nav>
 
-<body>
+    <div
+      id="touch-warning"
+      class="alert alert-warning alert-dismissible fade show mb-0 text-center"
+      role="alert"
+    >
+      <strong>Heads up:</strong> InterSketch is built around multi-touch
+      gestures (pinch, drag, hold, swipe). For the full experience, open this
+      page on a <strong>tablet</strong> or other touch-enabled device.
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
 
-  <!-- Add your site or application content here -->
-  <div id="timeline" width="100%" height="200"></div>
+    <!-- Add your site or application content here -->
+    <div id="timeline" width="100%" height="200"></div>
 
-  <!-- Modernizr -->
-  <script src="js/vendor/modernizr-3.6.0.min.js"></script>
-  <!-- Lodash -->
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-  <script>window._ || document.write('<script src="js/vendor/lodash-4.17.10.min.js"><\/script>')</script>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.slim.min.js"><\/script>')</script>
-  <!-- Popper -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script>window.Popper || document.write('<script src="js/vendor/popper-1.14.3.min.js"><\/script>')</script>
-  <!-- D3 -->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script>window.d3 || document.write('<script src="js/vendor/d3-5.7.0.min.js"><\/script>')</script>
-  <!-- D3-legend -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
-  <script>window.d3.legendColor || document.write('<script src="js/vendor/d3-legend-2.25.6.min.js"><\/script>')</script>
-  <!-- Bootstrap -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <script>window.bootstrap || document.write('<script src="js/vendor/bootstrap-4.1.3.min.js"><\/script>')</script>
-  <!-- Everpolate -->
-  <script src="https://cdn.jsdelivr.net/gh/BorisChumichev/everpolate@0.0.3/everpolate.browserified.min.js"></script>
-  <script>window.everpolate || document.write('<script src="js/vendor/everpolate-0.0.3.min.js"><\/script>')</script>
-  <!-- Moment -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-  <script>window.moment || document.write('<script src="js/vendor/moment-2.22.2.min.js"><\/script>')</script>
-  <!-- RxJS -->
-  <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
-  <script>window.rxjs || document.write('<script src="js/vendor/rxjs-6.3.3.min.js"><\/script>')</script>
-  <!-- Dynamic Time Warp -->
-  <script src="https://cdn.jsdelivr.net/gh/GordonLesti/dynamic-time-warping@1.0.0/src/dynamic-time-warping.min.js"></script>
-  <script>window.DynamicTimeWarping || document.write('<script src="js/vendor/dynamic-time-warping.js"><\/script>')</script>
-  <!-- Non-vendor -->
-  <script src="js/globals.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/slider.js"></script>
-  <script src="js/menu.js"></script>
-  <script src="js/timeline.js"></script>
-  <script src="js/main.js"></script>
-</body>
+    <div
+      class="modal fade"
+      id="howToModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="howToModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="howToModalLabel">
+              How InterSketch works
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              InterSketch lets you find patterns in time-series data by drawing
+              an example curve directly on the chart, instead of writing a
+              query. The sketch is compared against every series using dynamic
+              time warping, and matching curves are highlighted while the rest
+              fade into the background.
+            </p>
+            <h6>Sketch</h6>
+            <p>
+              Draw over the chart with your finger or mouse. Boundary lines mark
+              the
+              <em>before</em>, <em>during</em>, and <em>after</em> regions of
+              your query.
+            </p>
+            <h6>Scale &amp; shift</h6>
+            <p>
+              Pinch to resize the sketch, or press and drag a boundary line to
+              shift the whole query in time or value.
+            </p>
+            <h6>Anchor points &amp; events</h6>
+            <p>
+              Press along the sketch to drop an anchor point. Double-tap an
+              anchor to turn it into an event (e.g. a meal), which restricts
+              matches to curves with that same event nearby.
+            </p>
+            <h6>Refine segments</h6>
+            <p>
+              Hold two anchor points and drag one toward the other to stretch or
+              shrink the segment between them, or trace over a segment to
+              re-sketch just that part. Swipe with three fingers over a segment
+              to delete it.
+            </p>
+            <div class="row text-center mt-4">
+              <div class="col-md-6 mb-3">
+                <img
+                  src="img/fig4.png"
+                  class="img-fluid border"
+                  alt="Skew gesture: dragging one anchor point toward another to stretch or shrink a segment of the sketch"
+                />
+                <p class="small text-muted mt-1">
+                  Stretching a segment between two anchor points.
+                </p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <img
+                  src="img/fig5.png"
+                  class="img-fluid border"
+                  alt="Re-sketch gesture: tracing over a segment of the curve between two anchor points to redraw it"
+                />
+                <p class="small text-muted mt-1">
+                  Re-sketching a segment in place.
+                </p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <img
+                  src="img/fig2.png"
+                  class="img-fluid border"
+                  alt="Shift gesture: pressing and dragging a boundary line to move the entire sketch"
+                />
+                <p class="small text-muted mt-1">
+                  Dragging a boundary line shifts the whole sketch.
+                </p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <img
+                  src="img/fig3.png"
+                  class="img-fluid border"
+                  alt="Anchor point gesture: pressing along the curve to create and select an anchor point"
+                />
+                <p class="small text-muted mt-1">
+                  Pressing the curve creates an anchor point.
+                </p>
+              </div>
+            </div>
+            <p class="text-muted small mb-0">
+              Read the paper:
+              <a href="https://tmajor.design/work/publications/intersketch/"
+                ><em
+                  >InterSketch: Interactive Sketched Queries For Time-Series
+                  Data.</em
+                ></a
+              >
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Got it
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Modernizr -->
+    <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+    <!-- Lodash -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script>
+      window._ ||
+        document.write(
+          '<script src="js/vendor/lodash-4.17.10.min.js"><\/script>',
+        );
+    </script>
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.jQuery ||
+        document.write(
+          '<script src="js/vendor/jquery-3.3.1.slim.min.js"><\/script>',
+        );
+    </script>
+    <!-- Popper -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.Popper ||
+        document.write(
+          '<script src="js/vendor/popper-1.14.3.min.js"><\/script>',
+        );
+    </script>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+      window.d3 ||
+        document.write('<script src="js/vendor/d3-5.7.0.min.js"><\/script>');
+    </script>
+    <!-- D3-legend -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
+    <script>
+      window.d3.legendColor ||
+        document.write(
+          '<script src="js/vendor/d3-legend-2.25.6.min.js"><\/script>',
+        );
+    </script>
+    <!-- Bootstrap -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.bootstrap ||
+        document.write(
+          '<script src="js/vendor/bootstrap-4.1.3.min.js"><\/script>',
+        );
+    </script>
+    <!-- Everpolate -->
+    <script src="https://cdn.jsdelivr.net/gh/BorisChumichev/everpolate@0.0.3/everpolate.browserified.min.js"></script>
+    <script>
+      window.everpolate ||
+        document.write(
+          '<script src="js/vendor/everpolate-0.0.3.min.js"><\/script>',
+        );
+    </script>
+    <!-- Moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script>
+      window.moment ||
+        document.write(
+          '<script src="js/vendor/moment-2.22.2.min.js"><\/script>',
+        );
+    </script>
+    <!-- RxJS -->
+    <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+    <script>
+      window.rxjs ||
+        document.write('<script src="js/vendor/rxjs-6.3.3.min.js"><\/script>');
+    </script>
+    <!-- Dynamic Time Warp -->
+    <script src="https://cdn.jsdelivr.net/gh/GordonLesti/dynamic-time-warping@1.0.0/src/dynamic-time-warping.min.js"></script>
+    <script>
+      window.DynamicTimeWarping ||
+        document.write(
+          '<script src="js/vendor/dynamic-time-warping.js"><\/script>',
+        );
+    </script>
+    <!-- Non-vendor -->
+    <script src="js/globals.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+        var warning = document.getElementById("touch-warning");
+        if (warning) {
+          warning.remove();
+        }
+      }
+    </script>
+  </body>
 </html>

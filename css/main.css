@@ -101,6 +101,25 @@ textarea {
     touch-action: none;
 }
 
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+#touch-warning {
+    border-radius: 0;
+    border-width: 0 0 1px 0;
+}
+
+#howToModal h6 {
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+#howToModal h6:first-of-type {
+    margin-top: 0;
+}
+
 .color-dot {
     display: inline-block;
     width: 1rem;

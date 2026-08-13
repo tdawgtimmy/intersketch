@@ -313,6 +313,14 @@ function build_timeline(smallMultiple) {
     return d3.extent(series.map(seriesKeyAccessor)).reverse();
   }
 
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      loaded_data.forEach((d, i) => call_timeline(i));
+    }, 150);
+  });
+
   function getMaxDate(series) {
     return d3.max(series, s=> moment(s.date));
   }

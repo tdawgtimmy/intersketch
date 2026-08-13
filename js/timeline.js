@@ -709,6 +709,7 @@
         }
         localCurve.set(this, getPoints(svg, data.sketch));
         localPoints.set(this, getPoints(svg, data.points));
+        localPoints.get(this).forEach(p => p.selected = true);
         
         // Render the chart skeleton.
         renderChart(svg, props);
@@ -1998,7 +1999,7 @@
     function onPointMove(svg, point, touchPoint) {
       const svgEl = svg.node();
       const points = localPoints.get(svgEl);
-      const selected = points.filter(d => d.selected);
+      const selected = points; //.filter(d => d.selected);
       if (selected.length === 2) {
         // Stretch/trunctate
         const curve = localCurve.get(svgEl);
@@ -2049,7 +2050,7 @@
       _.pull(points, point);
       const idx = _.sortedIndexBy(points, point, d => d[0]);
       points.splice(idx, 0, point);
-      point.selected = false;
+      // point.selected = false;
       localChanged.set(svgEl, true);
       renderPoints(svg);
       renderOverlay(svg);
